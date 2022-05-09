@@ -7,12 +7,12 @@ import javax.persistence.*;
 import java.util.Date;
 
 /**
- * Класс Messages
+ * Класс Message
  */
 @Entity
 @Table(name = "messages")
 @Data
-public class Messages extends BaseEntity {
+public class Message extends BaseEntity {
 
 	@Column(name = "message")
 	private String message;

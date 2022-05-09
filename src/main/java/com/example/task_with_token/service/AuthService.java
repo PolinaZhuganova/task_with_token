@@ -12,11 +12,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class AuthService {
 	private AuthRepository authRepository;
-	private User user;
 	private TokenService tokenService;
 
 	public String generateToken(String name, String password) throws UserNotFoundException {
-		user = authRepository.findByName(name);
+		User user = authRepository.findByName(name);
 		if (user == null) {
 			throw new UserNotFoundException("User " + name + " not found");
 		}

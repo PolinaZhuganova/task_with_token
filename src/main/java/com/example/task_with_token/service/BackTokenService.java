@@ -1,9 +1,8 @@
 package com.example.task_with_token.service;
 
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -14,18 +13,15 @@ import java.util.*;
  * Класс TokenService
  */
 @Component
+@RequiredArgsConstructor
 public class BackTokenService implements TokenService {
 
+
+	private final TokenStorageService tokenStorageService;
 
 	@Value("${jwt.token.secret}")
 	private String secret;
 
-
-	@Bean
-	public BCryptPasswordEncoder passwordEncoder() {
-		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-		return bCryptPasswordEncoder;
-	}
 
 	@PostConstruct
 	protected void init() {
@@ -38,14 +34,16 @@ public class BackTokenService implements TokenService {
 		Claims claims = Jwts.claims().setSubject(name);
 
 		Date now = new Date();
-//		Date validity = new Date(now.getTime() + validityInMilliseconds);
-
-		return Jwts.builder()
+		String token = Jwts.builder()
 			.setClaims(claims)
 			.setIssuedAt(now)
-//			.setExpiration(validity)
 			.signWith(SignatureAlgorithm.HS256, secret)
 			.compact();
+
+		tokenStorageService.addToStorage(token);
+		return token;
+
+
 	}
 
 	public String resolveToken(HttpServletRequest req) {
