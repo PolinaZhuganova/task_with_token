@@ -1,4 +1,4 @@
-package com.example.task_with_token.service;
+package com.example.task_with_token.service.exception;
 
 /**
  * Класс SessionExpired

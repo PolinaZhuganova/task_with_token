@@ -13,9 +13,4 @@ public class BaseEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-
-//
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "status")
-//    private Status status;
 }

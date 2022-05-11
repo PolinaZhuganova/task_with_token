@@ -11,11 +11,7 @@ public class TokenDto {
 		this.token = token;
 	}
 
-	/**
-	 * Возвращает
-	 *
-	 * @return
-	 */
+
 	public String getToken() {
 		return token;
 	}
